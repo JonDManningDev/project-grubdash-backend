@@ -109,16 +109,30 @@ function validateStatus(req, res, next) {
     }
   }
 
-  const {
-    data: { status },
-  } = req.body;
+  const { data: { status } = {} } = req.body;
+
+  const validStatuses = [
+    "pending",
+    "preparing",
+    "out-for-delivery",
+    "delivered",
+  ];
+
   if (!status) {
     return next({
       status: 400,
       message:
         "Order must have a status of pending, preparing, out-for-delivery, delivered",
     });
-  } else if (res.locals.foundOrder.status === "delivered") {
+  } else if (!validStatuses.includes(status)) {
+    return next({
+      status: 400,
+      message: `Invalid status: ${status}`,
+    });
+  } else if (
+    res.locals.foundOrder &&
+    res.locals.foundOrder.status === "delivered"
+  ) {
     return next({
       status: 400,
       message: "A delivered order cannot be changed",

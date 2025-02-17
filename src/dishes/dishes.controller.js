@@ -34,7 +34,7 @@ function validateBodyId(req, res, next) {
     }
 
     id === dishId ? next() : next({
-        status: 404,
+        status: 400,
         message: `Dish id does not match route id. Dish: ${id}, Route: ${dishId}`
     });
 }
@@ -107,7 +107,7 @@ function update(req, res) {
     foundDish.price = price;
     foundDish.image_url = image_url;
 
-    return res.status(201).json({ data: foundDish });
+    return res.status(200).json({ data: foundDish });
 }
 
 module.exports = {

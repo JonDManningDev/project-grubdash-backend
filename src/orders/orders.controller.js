@@ -38,7 +38,7 @@ function validateBodyId(req, res, next) {
   id === orderId
     ? next()
     : next({
-        status: 404,
+        status: 400,
         message: `Order id does not match route id. Order: ${id}, Route: ${orderId}`,
       });
 }
@@ -167,7 +167,7 @@ function update(req, res) {
   foundOrder.dishes = dishes;
   foundOrder.status = status;
 
-  return res.status(201).json({ data: foundOrder });
+  return res.status(200).json({ data: foundOrder });
 }
 
 module.exports = {

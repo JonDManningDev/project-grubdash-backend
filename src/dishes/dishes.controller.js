@@ -5,7 +5,6 @@ const dishes = require(path.resolve("src/data/dishes-data"));
 
 // Use this function to assign ID's when necessary
 const nextId = require("../utils/nextId");
-const { findIndex } = require("../data/dishes-data");
 
 // TODO: Implement the /dishes handlers needed to make the tests pass
 
@@ -35,7 +34,7 @@ function validateBodyId(req, res, next) {
     }
 
     id === dishId ? next() : next({
-        status:404,
+        status: 404,
         message: `Dish id does not match route id. Dish: ${id}, Route: ${dishId}`
     });
 }
@@ -115,5 +114,5 @@ module.exports = {
     create: [validateProperties, create],
     list,
     read: [dishExists, read],
-    update: [validateBodyId, dishExists, validateProperties, update],
+    update: [validateBodyId, validateProperties, dishExists, update],
 };

@@ -176,9 +176,9 @@ module.exports = {
   list,
   read: [orderExists, read],
   update: [
+    orderExists,
     validateBodyId,
     validateProperties,
-    orderExists,
     validateStatus,
     update,
   ],
